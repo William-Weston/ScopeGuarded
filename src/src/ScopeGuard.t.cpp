@@ -9,7 +9,7 @@
  * 
  */
 
-#include "ScopeGuard/ScopeGuard.hpp"
+#include "ScopeGuarded/ScopeGuarded.hpp"
 
 #include <catch2/catch_all.hpp>
 
@@ -20,7 +20,7 @@
 
 TEST_CASE( "ScopeGuard.Basic" )
 {
-   using namespace ScopeGuarded;
+   using namespace ScopeGuarded::details;
 
    auto check = 0;
    auto fn = [&]{ check = 23;  };
@@ -36,5 +36,24 @@ TEST_CASE( "ScopeGuard.Basic" )
    SCOPE_EXIT
    {
       std::cerr << "\nOn Exit\n";
+
    };
+
+   try
+   {
+      SCOPE_FAIL
+      {
+         std::cerr << "\nOn Failure\n";
+      };
+
+      SCOPE_SUCCESS
+      {
+         std::cerr << "\nOn Success\n";
+      };
+     throw -1;
+   }
+   catch( ... )
+   {
+
+   }
 }
