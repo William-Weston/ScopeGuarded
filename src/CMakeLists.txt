@@ -5,11 +5,18 @@
 add_library( ScopeGuarded INTERFACE )
 add_library( ScopeGuarded::ScopeGuarded ALIAS ScopeGuarded )
 
+set( ScopeGuarded_Public_Headers 
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/ScopeGuarded/details/ScopeGuard.hpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/ScopeGuarded/details/UncaughtExceptionCounter.hpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/ScopeGuarded/details/ScopeGuardExceptional.hpp
+)
+
+
 target_sources( ScopeGuarded
    INTERFACE
       FILE_SET  HEADERS
       BASE_DIRS include
-      FILES     ${CMAKE_CURRENT_SOURCE_DIR}/include/ScopeGuarded/ScopeGuard.hpp
+      FILES     ${ScopeGuarded_Public_Headers}
 )
 
 target_compile_features( ScopeGuarded
