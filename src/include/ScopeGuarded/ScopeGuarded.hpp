@@ -27,7 +27,8 @@
 #define CONCAT( lhs, rhs )       CONCAT_IMPL( lhs, rhs )
 
 #define ANONYMOUS_VARIABLE( str )   \
-   CONCATENATE( str, __LINE__ )
+   CONCAT( str, __LINE__ )
+
 
 
 
