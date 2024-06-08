@@ -26,15 +26,8 @@
 #define CONCAT_IMPL( lhs, rhs )  lhs##rhs
 #define CONCAT( lhs, rhs )       CONCAT_IMPL( lhs, rhs )
 
-#ifdef __COUNTER__
-#define ANONYMOUS_VARIABLE( str )   \
-   CONCAT( str, __COUNTER__ )
-
-#else
 #define ANONYMOUS_VARIABLE( str )   \
    CONCATENATE( str, __LINE__ )
-
-#endif
 
 
 
