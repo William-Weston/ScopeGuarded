@@ -89,8 +89,4 @@ operator+ ( ScopeGuardOnSuccess, Fn&& fn ) -> ScopeGuardExceptional<typename std
 }  // namespace detail
 
 
-
-
-
-
 #endif   // WJTW_2024_06_06_INCLUDE_SCOPEGUARDED_SCOPEGUARDED_HPP

@@ -11,6 +11,7 @@
 #ifndef WJTW_2024_06_06_INCLUDE_SCOPEGUARDED_DETAILS_SCOPEGUARD_HPP
 #define WJTW_2024_06_06_INCLUDE_SCOPEGUARDED_DETAILS_SCOPEGUARD_HPP
 
+#include <concepts>        // invokable
 #include <type_traits>     // is_invokable_v, is_nothrow_default_constructible_v
 #include <utility>         // move
 
@@ -18,7 +19,7 @@
 namespace ScopeGuarded::details
 {
    
-template <typename Fn>
+template <std::invocable Fn>
 class ScopeGuard
 {
 public:
@@ -34,28 +35,22 @@ private:
 };
 
 
-template <typename Fn> constexpr
+template <std::invocable Fn> constexpr
 ScopeGuard<Fn>::ScopeGuard() noexcept( std::is_nothrow_default_constructible_v<Fn> )
    : fn_{ Fn{} }
-{
-   static_assert( std::is_invocable_v<Fn>, "Fn must be invokable");
-}
+{}
 
-template <typename Fn> constexpr
+template <std::invocable Fn> constexpr
 ScopeGuard<Fn>::ScopeGuard( Fn const& fn )
    : fn_{ fn }
-{
-   static_assert( std::is_invocable_v<Fn>, "Fn must be invokable");
-}
+{}
 
-template <typename Fn> constexpr
+template <std::invocable Fn> constexpr
 ScopeGuard<Fn>::ScopeGuard( Fn&& fn ) noexcept
    : fn_{ std::move( fn ) }
-{
-   static_assert( std::is_invocable_v<Fn>, "Fn must be invokable" );
-}
+{}
 
-template <typename Fn>
+template <std::invocable Fn>
 ScopeGuard<Fn>::~ScopeGuard()
 {
    fn_();

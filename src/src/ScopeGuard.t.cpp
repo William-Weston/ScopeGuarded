@@ -16,7 +16,7 @@
 #include <iostream>
 
 #define STRINGIFY_IMPL( str ) #str
-#define STRINGIFY( str ) STRINGIFY_IMPL( str )
+#define STRINGIFY( str )      STRINGIFY_IMPL( str )
 
 TEST_CASE( "ScopeGuard.Basic" )
 {
