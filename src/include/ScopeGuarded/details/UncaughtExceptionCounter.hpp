@@ -11,7 +11,7 @@
 #ifndef WJTW_2024_06_06_INCLUDE__SCOPEGUARDED_DETAILS_UNCAUGHTEXCEPTIONCOUNTER_HPP
 #define WJTW_2024_06_06_INCLUDE__SCOPEGUARDED_DETAILS_UNCAUGHTEXCEPTIONCOUNTER_HPP
 
-#include <exception>             // uncaught_exceptions
+#include <exception>             // for uncaught_exceptions
 
 
 namespace ScopeGuarded::details
@@ -20,10 +20,10 @@ namespace ScopeGuarded::details
 class UncaughtExceptionCounter final
 {
 public: 
-   UncaughtExceptionCounter() noexcept
+   constexpr UncaughtExceptionCounter() noexcept
       : exception_count_{ std::uncaught_exceptions() } {}
 
-  auto is_new_uncaught_exception() const noexcept { return std::uncaught_exceptions() > exception_count_; }
+  constexpr auto is_new_uncaught_exception() const noexcept { return std::uncaught_exceptions() > exception_count_; }
 
 private:
 

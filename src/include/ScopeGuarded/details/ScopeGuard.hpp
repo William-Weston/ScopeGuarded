@@ -11,9 +11,9 @@
 #ifndef WJTW_2024_06_06_INCLUDE_SCOPEGUARDED_DETAILS_SCOPEGUARD_HPP
 #define WJTW_2024_06_06_INCLUDE_SCOPEGUARDED_DETAILS_SCOPEGUARD_HPP
 
-#include <concepts>        // invokable
-#include <type_traits>     // is_invokable_v, is_nothrow_default_constructible_v
-#include <utility>         // move
+#include <concepts>        // for invokable
+#include <type_traits>     // for is_invokable_v, is_nothrow_default_constructible_v
+#include <utility>         // for move
 
 
 namespace ScopeGuarded::details
@@ -23,12 +23,11 @@ template <std::invocable Fn>
 class ScopeGuard
 {
 public:
-   constexpr ScopeGuard() noexcept( std::is_nothrow_default_constructible_v<Fn> );
-
+   explicit constexpr ScopeGuard()                  noexcept( std::is_nothrow_default_constructible_v<Fn> );
    explicit constexpr ScopeGuard( Fn const& fn );
-   explicit constexpr ScopeGuard( Fn&& fn ) noexcept;
+   explicit constexpr ScopeGuard( Fn&& fn )         noexcept;
 
-   ~ScopeGuard();
+   constexpr ~ScopeGuard();
 
 private:
    Fn fn_;
@@ -50,7 +49,7 @@ ScopeGuard<Fn>::ScopeGuard( Fn&& fn ) noexcept
    : fn_{ std::move( fn ) }
 {}
 
-template <std::invocable Fn>
+template <std::invocable Fn> constexpr
 ScopeGuard<Fn>::~ScopeGuard()
 {
    fn_();

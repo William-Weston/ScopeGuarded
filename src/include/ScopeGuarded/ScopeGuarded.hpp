@@ -61,7 +61,7 @@ namespace ScopeGuarded::details
 
 struct ScopeGuardOnExit {};
 
-template <typename Fn> auto 
+template <typename Fn> constexpr auto 
 operator+ ( ScopeGuardOnExit, Fn&& fn ) -> ScopeGuard<typename std::decay_t<Fn>>
 {
    return ScopeGuard<typename std::decay_t<Fn>>( std::forward<Fn>( fn ) );
@@ -70,7 +70,7 @@ operator+ ( ScopeGuardOnExit, Fn&& fn ) -> ScopeGuard<typename std::decay_t<Fn>>
 
 struct ScopeGuardOnFailure {};
 
-template <typename Fn> auto 
+template <typename Fn> constexpr auto 
 operator+ ( ScopeGuardOnFailure, Fn&& fn ) -> ScopeGuardExceptional<typename std::decay_t<Fn>, true>
 {
    return ScopeGuardExceptional<typename std::decay_t<Fn>, true>( std::forward<Fn>( fn ) );
@@ -80,7 +80,7 @@ operator+ ( ScopeGuardOnFailure, Fn&& fn ) -> ScopeGuardExceptional<typename std
 
 struct ScopeGuardOnSuccess {};
 
-template <typename Fn> auto 
+template <typename Fn> constexpr auto 
 operator+ ( ScopeGuardOnSuccess, Fn&& fn ) -> ScopeGuardExceptional<typename std::decay_t<Fn>, false>
 {
    return ScopeGuardExceptional<typename std::decay_t<Fn>, false>( std::forward<Fn>( fn ) );
